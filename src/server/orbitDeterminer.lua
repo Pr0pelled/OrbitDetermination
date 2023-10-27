@@ -29,7 +29,8 @@ type orbitInfo = {
 	["LongitudeOfAscendingNode"]: number,
 	["ArgumentOfPeriapsis"]: number,
 	["StandardGravitationalParameter"]: number,
-	["SpecificOrbitalEnergy"]: number
+	["SpecificOrbitalEnergy"]: number,
+	["OrbitUpVector"]: Vector3,
 }
 
 --Mass multiplier
@@ -41,6 +42,7 @@ local thisModule = {}
 function thisModule.determineOrbit(position: Vector3, velocity: Vector3, centralBody: Part): orbitInfo
 	local info: orbitInfo = {}
 	local h = position:Cross(velocity)
+	info.OrbitUpVector = h.Unit
 	info.AscendingNodeVector = centralBody.CFrame.UpVector:Cross(h)
 
 	--For non-inclined orbits:
